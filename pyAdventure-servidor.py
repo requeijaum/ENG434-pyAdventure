@@ -194,7 +194,7 @@ def on_new_client(clientsocket,addr):
 
         # iniciar logica do jogo
         gameOn = True
-        
+
         while gameOn:
 
             
@@ -208,7 +208,7 @@ def on_new_client(clientsocket,addr):
             clientsocket.send(msg.encode())
 
             #player.changeLocation(mainGame.graph , comando)
-
+            
             gameOn = False
 
 
