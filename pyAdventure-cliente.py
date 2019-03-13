@@ -9,6 +9,10 @@
 import socket
 
 HOST = input("Digite o nome do host: ") #'127.0.0.1'
+if HOST == "" :
+    HOST = "localhost"
+    print("\nUsando localhost!\n")
+
 PORT = 50777  # ADV0 em T9
 
 tcp = socket.socket(
@@ -38,8 +42,9 @@ while (msg != '\x18') or (msg != "/kick " + nomeJogador) :            # respeita
 
     data_received = tcp.recv(1024)
     print(data_received.decode())
+
     msg_enter = "\n"
-    '''
+    
     if len(data_received.decode()) > 1 :                # receba algum comando... é uma string que começa com "/"
        
         # usar split() numa string... separar por espaço! como fazer split? vou dormir
@@ -51,7 +56,7 @@ while (msg != '\x18') or (msg != "/kick " + nomeJogador) :            # respeita
             if "/" in command_recv[0]:                  # se tem "/" na primeira palavra...
                 tcp.send(msg_enter.encode())            # pular qualquer coisa... caso receba um comando: envia ENTER por pura preguiça
     
-    '''
+    
 
     # transformar comandos em tuples/array com comando e argumento(s)
 
