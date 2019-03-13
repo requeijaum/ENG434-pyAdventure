@@ -1,5 +1,8 @@
 #!/usr/bin/python           # This is server.py file                                                          
 
+
+# conceitos legais em : https://www.smashingmagazine.com/2018/12/multiplayer-text-adventure-engine-node-js/
+
 class Jogador:
    'Classe base para todos os jogadores'
    contaJogadores = 0
@@ -59,22 +62,30 @@ def on_new_client(clientsocket,addr):
         #firstMsg = clientsocket.recv(1024).decode()
         #if firstMsg == "Olá!" :
 
-        msg = "Qual o seu nome?" + "\n"
-        clientsocket.send(msg.encode())
+        
 
         nomeConfirma = False
 
         while nomeConfirma == False :
+
+            msg = "Qual o seu nome?" + "\n"
+            clientsocket.send(msg.encode())
+
             nome = clientsocket.recv(1024).decode()
             msg = "Seu nome é: '" + nome + "' ?" + "\n"
             clientsocket.send(msg.encode())
 
             nomeConfirmacao = clientsocket.recv(1024).decode()
             
-            if (nomeConfirmacao == "sim") :
+            if nomeConfirmacao == "sim" :
                 msg = "/playername " + nome + "\n"
                 clientsocket.send(msg.encode())
                 nomeConfirma = True
+
+            else :
+                msg = "Tente novamente!\n"
+                clientsocket.send(msg.encode())
+                nomeConfirma = False
             
         # talvez bugue
 

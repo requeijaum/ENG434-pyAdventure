@@ -38,6 +38,20 @@ while (msg != '\x18') or (msg != "/kick " + nomeJogador) :            # respeita
 
     data_received = tcp.recv(1024)
     print(data_received.decode())
+    msg_enter = "\n"
+    '''
+    if len(data_received.decode()) > 1 :                # receba algum comando... é uma string que começa com "/"
+       
+        # usar split() numa string... separar por espaço! como fazer split? vou dormir
+        
+
+        if len(data_received.decode().split()) >= 2:    # comando identificado - possui argumento!
+            command_recv = data_received.decode().split()
+
+            if "/" in command_recv[0]:                  # se tem "/" na primeira palavra...
+                tcp.send(msg_enter.encode())            # pular qualquer coisa... caso receba um comando: envia ENTER por pura preguiça
+    
+    '''
 
     # transformar comandos em tuples/array com comando e argumento(s)
 
