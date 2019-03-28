@@ -104,18 +104,25 @@ def getInput(clientsocket):
     return clientsocket.recv(1024).decode()
 
 
-def parseAndExecute(recv_txt, player, mainGame):
+def parseAndExecute(recv_txt, player, mainGame, clientsocket):
     
-    verb = recv_txt.split(" ")[0]
-    noun = None
+    verb = "test"
+    noun = "test"
 
-    if verb == "quit" : 
-        #desconectar()
-        print("DEBUG: desconectar()")
+    if len(verb) > 1 and " " in verb and verb != "\n" :
 
-    if verb == "north" or verb == "south" or verb == "east" or verb == "west" :
-        #player.changeLocation(mainGame["graph"], verb) # changeLocation(self, graph , rosa_dos_ventos):
-        print("player.changeLocation(mainGame['graph'], verb)")
+        verb = recv_txt.split(" ")[0]
+        
+        if verb == "quit" : 
+            #desconectar()
+            msg = "/kick " + player.name + "\n"
+            print("DEBUG: " + msg)
+            clientsocket.send(msg.encode())
+
+
+        if verb == "north" or verb == "south" or verb == "east" or verb == "west" :
+            #player.changeLocation(mainGame["graph"], verb) # changeLocation(self, graph , rosa_dos_ventos):
+            print("player.changeLocation(mainGame['graph'], verb)")
 
 
 import socket               # Import socket module
@@ -194,6 +201,8 @@ def on_new_client(clientsocket,addr):
 
         # iniciar logica do jogo
         gameOn = True
+        recv_txt = None
+
 
         while gameOn:
 
@@ -206,6 +215,8 @@ def on_new_client(clientsocket,addr):
         
             msg = getRoomMessage(player.locationID)
             clientsocket.send(msg.encode())
+
+            parseAndExecute(recv_txt, player, mainGame, clientsocket) # parseAndExecute(recv_txt, player, mainGame, clientsocket):
 
             #player.changeLocation(mainGame.graph , comando)
             

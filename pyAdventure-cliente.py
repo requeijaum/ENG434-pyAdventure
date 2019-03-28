@@ -70,6 +70,7 @@ while (msg != '\x18') or (msg != "/kick " + nomeJogador) :            # respeita
         nomeJogador = data_received.decode().replace("/kick ", "")
         print("Ah, não! Você foi kickado pelo servidor! :^)")
         
+        
 
     #tcp.send (msg.encode())
     msg = input()
